@@ -9,6 +9,16 @@ This repository contains a custom AWS CDK construct that simplifies the process 
 - **Resource Import**: Imports resources from a specified CloudFormation stack into the AWS Resilience Hub application.
 - **Application Publishing**: Publishes the Resilience Hub application version after importing the resources.
 
+## Limitations
+
+Currently, only a single AWS CloudFormation stack is supported as an input source, identified by its stack name (ARN is resolved automatically).
+
+## ToDo
+
+- Allow multiple stacks or more diverse input sources (e.g., myApplications application or Resource Group).
+- Allow Terraform sources
+- Allow EKS sources
+
 ## Requirements
 
 - AWS CDK v2 or later
