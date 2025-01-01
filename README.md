@@ -50,6 +50,7 @@ This repository contains a custom AWS CDK construct that simplifies the process 
      sourceStackName: 'MySourceStack',
      appAssessmentSchedule: 'Daily',
      appDescription: 'This is my AWS Resilience Hub application',
+     publish: true,
    });
    ```
 
