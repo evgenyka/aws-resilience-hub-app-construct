@@ -71,6 +71,7 @@ The construct requires the following properties:
 - **`appAssessmentSchedule`** (optional): The assessment schedule for the application. Defaults to 'Daily'.
 - **`appDescription`** (optional): A description for the Resilience Hub application. Defaults to 'Resilience configuration created by AwsResilienceHubApp construct'.
 - **`tags`** (optional): Tags to apply to the Resilience Hub application.
+- **`publish`** (optional): Publish Resilience Hub application.
 
 ### Testing
 
