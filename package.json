@@ -1,5 +1,6 @@
 {
   "name": "aws-resiliencehub-app",
+  "description": "An L2 construct for AWS Resilience Hub application with resource import and publish capabilities",
   "repository": {
     "type": "git",
     "url": "https://github.com/ekarasik/aws-resiliencehub-app.git"
@@ -17,6 +18,7 @@
     "package": "npx projen package",
     "package-all": "npx projen package-all",
     "package:js": "npx projen package:js",
+    "package:python": "npx projen package:python",
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
@@ -39,9 +41,8 @@
     "@types/node": "^22.10.3",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
-    "aws-cdk-lib": "2.1.0",
+    "aws-cdk-lib": "2.173.4",
     "commit-and-tag-version": "^12",
-    "constructs": "10.0.5",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^3.7.0",
     "eslint-plugin-import": "^2.31.0",
@@ -58,8 +59,12 @@
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.1.0",
+    "aws-cdk-lib": "^2.173.4",
     "constructs": "^10.0.5"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.173.4",
+    "constructs": "^10.4.2"
   },
   "keywords": [
     "cdk"
@@ -119,7 +124,12 @@
   "stability": "stable",
   "jsii": {
     "outdir": "dist",
-    "targets": {},
+    "targets": {
+      "python": {
+        "distName": "aws-resiliencehub-app",
+        "module": "aws_resiliencehub_app"
+      }
+    },
     "tsc": {
       "outDir": "lib",
       "rootDir": "src"
