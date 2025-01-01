@@ -6,17 +6,18 @@ import { fetchStackArn } from './utils';
 
 export interface AwsResilienceHubAppProps {
   readonly appName: string;
-  readonly resiliencyPolicyArn: string;
   readonly sourceStackName: string;
+  readonly resiliencyPolicyArn?: string;
   readonly appAssessmentSchedule?: string;
   readonly appDescription?: string;
   readonly tags?: { [key: string]: string };
+  readonly publish?: boolean;
 }
 
 export class AwsResilienceHubApp extends Construct {
   public readonly appArn: string;
   public readonly importStatus: string;
-  public readonly publishedVersion: string;
+  public readonly publishedVersion: string | undefined;
 
   constructor(scope: Construct, id: string, props: AwsResilienceHubAppProps) {
     super(scope, id);
@@ -24,7 +25,7 @@ export class AwsResilienceHubApp extends Construct {
     // Create the Resilience Hub Application
     const arhApp = new resiliencehub.CfnApp(this, 'ResilienceHubApplication', {
       name: props.appName,
-      description: props.appDescription || 'Resilience configuration created by AwsResilienceHubApp construct',
+      description: props.appDescription || 'Resilience App created by AwsResilienceHubApp construct',
       appAssessmentSchedule: props.appAssessmentSchedule || 'Daily',
       resiliencyPolicyArn: props.resiliencyPolicyArn,
       appTemplateBody: '{"Resources":{}}',
@@ -41,12 +42,15 @@ export class AwsResilienceHubApp extends Construct {
     // Create Import Resources Custom Resource
     const importResources = createImportResourcesCustomResource(this, arhApp.attrAppArn, stackArn, customResourceRole);
 
-    // Create Publish App Custom Resource
-    const publishApp = createPublishAppCustomResource(this, arhApp.attrAppArn, importResources, customResourceRole);
+    // Conditionally create the Publish App Custom Resource based on the `publish` property
+    let publishApp;
+    if (props.publish ?? false) { // Default to false if `publish` is not provided
+      publishApp = createPublishAppCustomResource(this, arhApp.attrAppArn, importResources, customResourceRole);
+    }
 
     // Set properties
     this.appArn = arhApp.attrAppArn;
     this.importStatus = importResources.getResponseField('status');
-    this.publishedVersion = publishApp.getResponseField('appVersion');
+    this.publishedVersion = publishApp?.getResponseField('appVersion');
   }
 }

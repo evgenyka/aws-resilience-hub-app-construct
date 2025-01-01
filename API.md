@@ -137,7 +137,7 @@ public readonly importStatus: string;
 
 ---
 
-##### `publishedVersion`<sup>Required</sup> <a name="publishedVersion" id="aws-resiliencehub-app.AwsResilienceHubApp.property.publishedVersion"></a>
+##### `publishedVersion`<sup>Optional</sup> <a name="publishedVersion" id="aws-resiliencehub-app.AwsResilienceHubApp.property.publishedVersion"></a>
 
 ```typescript
 public readonly publishedVersion: string;
@@ -165,10 +165,11 @@ const awsResilienceHubAppProps: AwsResilienceHubAppProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.appName">appName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.resiliencyPolicyArn">resiliencyPolicyArn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.sourceStackName">sourceStackName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.appAssessmentSchedule">appAssessmentSchedule</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.appDescription">appDescription</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.publish">publish</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.resiliencyPolicyArn">resiliencyPolicyArn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 
 ---
@@ -177,16 +178,6 @@ const awsResilienceHubAppProps: AwsResilienceHubAppProps = { ... }
 
 ```typescript
 public readonly appName: string;
-```
-
-- *Type:* string
-
----
-
-##### `resiliencyPolicyArn`<sup>Required</sup> <a name="resiliencyPolicyArn" id="aws-resiliencehub-app.AwsResilienceHubAppProps.property.resiliencyPolicyArn"></a>
-
-```typescript
-public readonly resiliencyPolicyArn: string;
 ```
 
 - *Type:* string
@@ -217,6 +208,26 @@ public readonly appAssessmentSchedule: string;
 
 ```typescript
 public readonly appDescription: string;
+```
+
+- *Type:* string
+
+---
+
+##### `publish`<sup>Optional</sup> <a name="publish" id="aws-resiliencehub-app.AwsResilienceHubAppProps.property.publish"></a>
+
+```typescript
+public readonly publish: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `resiliencyPolicyArn`<sup>Optional</sup> <a name="resiliencyPolicyArn" id="aws-resiliencehub-app.AwsResilienceHubAppProps.property.resiliencyPolicyArn"></a>
+
+```typescript
+public readonly resiliencyPolicyArn: string;
 ```
 
 - *Type:* string

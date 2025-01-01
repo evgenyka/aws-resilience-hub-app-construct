@@ -11,7 +11,6 @@ export function createCustomResourceRole(scope: Construct, appArn: string, sourc
           new iam.PolicyStatement({
             actions: [
               'resiliencehub:ImportResourcesToDraftAppVersion',
-              'resiliencehub:DescribeDraftAppVersionResourcesImportStatus',
               'resiliencehub:PublishAppVersion',
             ],
             resources: [appArn], // Restrict to the specific Resilience Hub application ARN
