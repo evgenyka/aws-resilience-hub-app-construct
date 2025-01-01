@@ -18,6 +18,7 @@ Currently, only a single AWS CloudFormation stack is supported as an input sourc
 - Allow multiple stacks or more diverse input sources (e.g., myApplications application or Resource Group).
 - Allow Terraform sources
 - Allow EKS sources
+- Contribute to aws-cdk-lib (AWS-managed constructs library)
 
 ## Requirements
 
