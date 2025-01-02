@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b156c83fec9e1738b9b22986979b49c381f5172bd902f4e77efe6dad13592ddd.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/9d995eaf993b4c9810b1ca7edacdeb65756cbc2d82029b2053f124509f3b38cf.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -118,6 +118,42 @@
             "data": "MyResilienceHubAppConstructImportResourcesCustomResourcePolicyBC81282C"
           }
         ],
+        "/MyTestStack/MyResilienceHubAppConstruct/PublishApp": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "installLatestAwsSdk was not specified, and defaults to true. You probably do not want this. Set the global context flag '@aws-cdk/customresources:installLatestAwsSdkDefault' to false to switch this behavior off project-wide, or set the property explicitly to true if you know you need to call APIs that are not in Lambda's built-in SDK version. [ack: @aws-cdk/custom-resources:installLatestAwsSdkNotSpecified]",
+            "trace": [
+              "Annotations.addMessage (/Users/ekarasik/Documents/GitHub/aws-resiliencehub-app/node_modules/aws-cdk-lib/core/lib/annotations.js:1:1608)",
+              "Annotations.addWarningV2 (/Users/ekarasik/Documents/GitHub/aws-resiliencehub-app/node_modules/aws-cdk-lib/core/lib/annotations.js:1:825)",
+              "new AwsCustomResource (/Users/ekarasik/Documents/GitHub/aws-resiliencehub-app/node_modules/aws-cdk-lib/custom-resources/lib/aws-custom-resource/aws-custom-resource.js:1:5212)",
+              "createPublishAppCustomResource (/Users/ekarasik/Documents/GitHub/aws-resiliencehub-app/src/custom-resources.ts:39:22)",
+              "AwsResilienceHubApp (/Users/ekarasik/Documents/GitHub/aws-resiliencehub-app/src/index.ts:48:20)",
+              "<anonymous> (/Users/ekarasik/Documents/GitHub/aws-resiliencehub-app/bin/deploy.ts:13:1)",
+              "Object.<anonymous> (/Users/ekarasik/Documents/GitHub/aws-resiliencehub-app/bin/deploy.ts:21:2)",
+              "Module._compile (node:internal/modules/cjs/loader:1356:14)",
+              "Object.transformer (/Users/ekarasik/.npm/_npx/fd45a72a545557e9/node_modules/tsx/dist/register-DCnOAxY2.cjs:2:1186)",
+              "Module.load (node:internal/modules/cjs/loader:1197:32)",
+              "Module._load (node:internal/modules/cjs/loader:1013:12)",
+              "ModuleWrap.<anonymous> (node:internal/modules/esm/translators:202:29)",
+              "ModuleJob.run (node:internal/modules/esm/module_job:195:25)",
+              "async ModuleLoader.import (node:internal/modules/esm/loader:336:24)",
+              "async loadESM (node:internal/process/esm_loader:34:7)",
+              "async handleMainPromise (node:internal/modules/run_main:106:12)"
+            ]
+          }
+        ],
+        "/MyTestStack/MyResilienceHubAppConstruct/PublishApp/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResilienceHubAppConstructPublishApp40041936"
+          }
+        ],
+        "/MyTestStack/MyResilienceHubAppConstruct/PublishApp/CustomResourcePolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyResilienceHubAppConstructPublishAppCustomResourcePolicy7AB5A1C3"
+          }
+        ],
         "/MyTestStack/LatestNodeRuntimeMap": [
           {
             "type": "aws:cdk:logicalId",
@@ -125,6 +161,14 @@
           }
         ],
         "/MyTestStack/AWS679f53fac002430cb0da5b7982bd2287": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-singleton",
+            "data": true
+          },
+          {
+            "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+            "data": 0
+          },
           {
             "type": "aws:cdk:is-custom-resource-handler-singleton",
             "data": true

@@ -5,8 +5,9 @@
    "Properties": {
     "AppAssessmentSchedule": "Daily",
     "AppTemplateBody": "{\"Resources\":{}}",
-    "Description": "Resilience configuration created by AwsResilienceHubApp construct",
+    "Description": "Resilience App created by AwsResilienceHubApp construct",
     "Name": "TestApp",
+    "ResiliencyPolicyArn": "arn:aws:resiliencehub:us-east-2:608935286732:resiliency-policy/6e582802-403b-4362-871a-b2479003837a",
     "ResourceMappings": [],
     "Tags": {
      "Application": "DemoApplication"
@@ -53,7 +54,6 @@
         {
          "Action": [
           "resiliencehub:ImportResourcesToDraftAppVersion",
-          "resiliencehub:DescribeDraftAppVersionResourcesImportStatus",
           "resiliencehub:PublishAppVersion"
          ],
          "Effect": "Allow",
@@ -189,6 +189,71 @@
    },
    "Metadata": {
     "aws:cdk:path": "MyTestStack/MyResilienceHubAppConstruct/ImportResources/CustomResourcePolicy/Resource"
+   }
+  },
+  "MyResilienceHubAppConstructPublishApp40041936": {
+   "Type": "Custom::AWS",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+      "Arn"
+     ]
+    },
+    "Create": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"service\":\"ResilienceHub\",\"action\":\"publishAppVersion\",\"parameters\":{\"appArn\":\"",
+       {
+        "Fn::GetAtt": [
+         "MyResilienceHubAppConstructResilienceHubApplication4C525F09",
+         "AppArn"
+        ]
+       },
+       "\"},\"physicalResourceId\":{\"id\":\"ImportResourcesStaticId\"}}"
+      ]
+     ]
+    },
+    "InstallLatestAwsSdk": true
+   },
+   "DependsOn": [
+    "MyResilienceHubAppConstructImportResourcesCustomResourcePolicyBC81282C",
+    "MyResilienceHubAppConstructImportResources027258DE",
+    "MyResilienceHubAppConstructPublishAppCustomResourcePolicy7AB5A1C3"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "MyTestStack/MyResilienceHubAppConstruct/PublishApp/Resource/Default"
+   }
+  },
+  "MyResilienceHubAppConstructPublishAppCustomResourcePolicy7AB5A1C3": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "resiliencehub:PublishAppVersion",
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "MyResilienceHubAppConstructPublishAppCustomResourcePolicy7AB5A1C3",
+    "Roles": [
+     {
+      "Ref": "MyResilienceHubAppConstructCustomResourceRole991D9366"
+     }
+    ]
+   },
+   "DependsOn": [
+    "MyResilienceHubAppConstructImportResourcesCustomResourcePolicyBC81282C",
+    "MyResilienceHubAppConstructImportResources027258DE"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "MyTestStack/MyResilienceHubAppConstruct/PublishApp/CustomResourcePolicy/Resource"
    }
   },
   "AWS679f53fac002430cb0da5b7982bd22872D164C4C": {
