@@ -5,7 +5,7 @@ import { Construct } from 'constructs';
 export function createImportResourcesCustomResource(
   scope: Construct,
   appArn: string,
-  stackArn: string,
+  sourceArns: string[],
   customResourceRole: iam.IRole,
 ): cr.AwsCustomResource {
 
@@ -16,7 +16,7 @@ export function createImportResourcesCustomResource(
       action: 'importResourcesToDraftAppVersion',
       parameters: {
         appArn: appArn,
-        sourceArns: [stackArn],
+        sourceArns: sourceArns,
       },
       physicalResourceId: cr.PhysicalResourceId.of('ImportResourcesStaticId'),
     },

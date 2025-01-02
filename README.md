@@ -1,23 +1,19 @@
 
 # AWS Resilience Hub App Construct
 
-This repository contains a custom AWS CDK construct that simplifies the process of creating and managing AWS Resilience Hub applications. The construct allows users to integrate AWS Resilience Hub with CloudFormation stacks, import resources, and publish resilience application versions.
+This repository contains a custom AWS CDK construct that simplifies the process of creating and managing AWS Resilience Hub applications. The construct allows users to integrate AWS Resilience Hub, import resources, and publish resilience application versions.
 
 ## Features
 
 - **Custom Resource Creation**: Creates a custom AWS IAM role and integrates with AWS Resilience Hub for resource import and application publishing.
-- **Resource Import**: Imports resources from a specified CloudFormation stack into the AWS Resilience Hub application.
+- **Resource Import**: Imports resources from a specified ARNs into the AWS Resilience Hub application.
 - **Application Publishing**: Publishes the Resilience Hub application version after importing the resources.
-
-## Limitations
-
-Currently, only a single AWS CloudFormation stack is supported as an input source, identified by its stack name (ARN is resolved automatically).
 
 ## ToDo
 
-- Allow multiple stacks or more diverse input sources (e.g., myApplications application or Resource Group).
 - Allow Terraform sources
 - Allow EKS sources
+- Add DescribeDraftAppVersionResourcesImportStatus to report import status
 - Contribute to aws-cdk-lib (AWS-managed constructs library)
 
 ## Requirements
@@ -57,11 +53,14 @@ Currently, only a single AWS CloudFormation stack is supported as an input sourc
    const app = new cdk.App();
    new AwsResilienceHubApp(app, 'MyResilienceHubApp', {
      appName: 'MyApplication',
-     resiliencyPolicyArn: 'arn:aws:resiliencehub:us-west-2:123456789012:resiliency-policy/my-resiliency-policy',
-     sourceStackName: 'MySourceStack',
-     appAssessmentSchedule: 'Daily',
-     appDescription: 'This is my AWS Resilience Hub application',
-     publish: true,
+      resiliencyPolicyArn: 'arn:aws:resiliencehub:us-west-2:123456789012:resiliency-policy/my-resiliency-policy',
+      sourceArns: [
+         'arn:aws:cloudformation:region:account:stack/first-stack-name/first-stack-id',
+         'arn:aws:cloudformation:region:account:stack/second-stack-name/second-stack-id',
+      ],
+      appAssessmentSchedule: 'Daily',
+      appDescription: 'This is my AWS Resilience Hub application',
+      publish: true,
    });
    ```
 

@@ -7,7 +7,7 @@
     "AppTemplateBody": "{\"Resources\":{}}",
     "Description": "Resilience App created by AwsResilienceHubApp construct",
     "Name": "TestApp",
-    "ResiliencyPolicyArn": "arn:aws:resiliencehub:us-east-2:608935286732:resiliency-policy/6e582802-403b-4362-871a-b2479003837a",
+    "ResiliencyPolicyArn": "arn:aws:resiliencehub:region:account:resiliency-policy/policy-arn",
     "ResourceMappings": [],
     "Tags": {
      "Application": "DemoApplication"
@@ -65,9 +65,13 @@
          }
         },
         {
-         "Action": "cloudformation:DescribeStacks",
+         "Action": [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+         ],
          "Effect": "Allow",
-         "Resource": "arn:aws:cloudformation:*:*:stack/DemoApplication/*"
+         "Resource": "arn:aws:logs:*:*:*"
         }
        ],
        "Version": "2012-10-17"
@@ -78,51 +82,6 @@
    },
    "Metadata": {
     "aws:cdk:path": "MyTestStack/MyResilienceHubAppConstruct/CustomResourceRole/Resource"
-   }
-  },
-  "MyResilienceHubAppConstructGetStackArnFD7DB0AE": {
-   "Type": "Custom::AWS",
-   "Properties": {
-    "ServiceToken": {
-     "Fn::GetAtt": [
-      "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
-      "Arn"
-     ]
-    },
-    "Create": "{\"service\":\"CloudFormation\",\"action\":\"describeStacks\",\"parameters\":{\"StackName\":\"DemoApplication\"},\"physicalResourceId\":{\"id\":\"GetStackArn-DemoApplication\"}}",
-    "InstallLatestAwsSdk": true
-   },
-   "DependsOn": [
-    "MyResilienceHubAppConstructGetStackArnCustomResourcePolicy508BAFE0"
-   ],
-   "UpdateReplacePolicy": "Delete",
-   "DeletionPolicy": "Delete",
-   "Metadata": {
-    "aws:cdk:path": "MyTestStack/MyResilienceHubAppConstruct/GetStackArn/Resource/Default"
-   }
-  },
-  "MyResilienceHubAppConstructGetStackArnCustomResourcePolicy508BAFE0": {
-   "Type": "AWS::IAM::Policy",
-   "Properties": {
-    "PolicyDocument": {
-     "Statement": [
-      {
-       "Action": "cloudformation:DescribeStacks",
-       "Effect": "Allow",
-       "Resource": "*"
-      }
-     ],
-     "Version": "2012-10-17"
-    },
-    "PolicyName": "MyResilienceHubAppConstructGetStackArnCustomResourcePolicy508BAFE0",
-    "Roles": [
-     {
-      "Ref": "MyResilienceHubAppConstructCustomResourceRole991D9366"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "MyTestStack/MyResilienceHubAppConstruct/GetStackArn/CustomResourcePolicy/Resource"
    }
   },
   "MyResilienceHubAppConstructImportResources027258DE": {
@@ -145,14 +104,7 @@
          "AppArn"
         ]
        },
-       "\",\"sourceArns\":[\"",
-       {
-        "Fn::GetAtt": [
-         "MyResilienceHubAppConstructGetStackArnFD7DB0AE",
-         "Stacks.0.StackId"
-        ]
-       },
-       "\"]},\"physicalResourceId\":{\"id\":\"ImportResourcesStaticId\"}}"
+       "\",\"sourceArns\":[\"arn:aws:cloudformation:region:account:stack/first-stack-name/first-stack-id\",\"arn:aws:cloudformation:region:account:stack/second-stack-name/second-stack-id\"]},\"physicalResourceId\":{\"id\":\"ImportResourcesStaticId\"}}"
       ]
      ]
     },
