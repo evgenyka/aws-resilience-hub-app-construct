@@ -9,7 +9,10 @@ test('AwsResilienceHubApp Created', () => {
   new AwsResilienceHubApp.AwsResilienceHubApp(stack, 'TestApp', {
     appName: 'TestResilienceHubApp',
     resiliencyPolicyArn: 'arn:aws:resiliencehub:region:account:resiliency-policy/policy-arn',
-    sourceStackName: 'TestStack',
+    sourceArns: [
+      'arn:aws:cloudformation:region:account:stack/first-stack-name/first-stack-id',
+      'arn:aws:cloudformation:region:account:stack/second-stack-name/second-stack-id',
+    ],
   });
 
   const template = Template.fromStack(stack);

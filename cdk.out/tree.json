@@ -22,7 +22,7 @@
                     "appTemplateBody": "{\"Resources\":{}}",
                     "description": "Resilience App created by AwsResilienceHubApp construct",
                     "name": "TestApp",
-                    "resiliencyPolicyArn": "arn:aws:resiliencehub:us-east-2:608935286732:resiliency-policy/6e582802-403b-4362-871a-b2479003837a",
+                    "resiliencyPolicyArn": "arn:aws:resiliencehub:region:account:resiliency-policy/policy-arn",
                     "resourceMappings": [],
                     "tags": {
                       "Application": "DemoApplication"
@@ -98,9 +98,13 @@
                                   }
                                 },
                                 {
-                                  "Action": "cloudformation:DescribeStacks",
+                                  "Action": [
+                                    "logs:CreateLogGroup",
+                                    "logs:CreateLogStream",
+                                    "logs:PutLogEvents"
+                                  ],
                                   "Effect": "Allow",
-                                  "Resource": "arn:aws:cloudformation:*:*:stack/DemoApplication/*"
+                                  "Resource": "arn:aws:logs:*:*:*"
                                 }
                               ],
                               "Version": "2012-10-17"
@@ -117,81 +121,6 @@
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.173.4"
-                }
-              },
-              "GetStackArn": {
-                "id": "GetStackArn",
-                "path": "MyTestStack/MyResilienceHubAppConstruct/GetStackArn",
-                "children": {
-                  "Provider": {
-                    "id": "Provider",
-                    "path": "MyTestStack/MyResilienceHubAppConstruct/GetStackArn/Provider",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_lambda.SingletonFunction",
-                      "version": "2.173.4"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "MyTestStack/MyResilienceHubAppConstruct/GetStackArn/Resource",
-                    "children": {
-                      "Default": {
-                        "id": "Default",
-                        "path": "MyTestStack/MyResilienceHubAppConstruct/GetStackArn/Resource/Default",
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.CfnResource",
-                          "version": "2.173.4"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.CustomResource",
-                      "version": "2.173.4"
-                    }
-                  },
-                  "CustomResourcePolicy": {
-                    "id": "CustomResourcePolicy",
-                    "path": "MyTestStack/MyResilienceHubAppConstruct/GetStackArn/CustomResourcePolicy",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "MyTestStack/MyResilienceHubAppConstruct/GetStackArn/CustomResourcePolicy/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                          "aws:cdk:cloudformation:props": {
-                            "policyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "cloudformation:DescribeStacks",
-                                  "Effect": "Allow",
-                                  "Resource": "*"
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            },
-                            "policyName": "MyResilienceHubAppConstructGetStackArnCustomResourcePolicy508BAFE0",
-                            "roles": [
-                              {
-                                "Ref": "MyResilienceHubAppConstructCustomResourceRole991D9366"
-                              }
-                            ]
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                          "version": "2.173.4"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.Policy",
-                      "version": "2.173.4"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.custom_resources.AwsCustomResource",
                   "version": "2.173.4"
                 }
               },

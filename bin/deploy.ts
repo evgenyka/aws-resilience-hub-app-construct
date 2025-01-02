@@ -9,11 +9,14 @@ const stack = new cdk.Stack(app, 'MyTestStack', {
   //env: { region: 'us-east-1' },
 });
 
-// Add your custom construct to the stack
+// Add our custom construct to the stack
 new AwsResilienceHubApp(stack, 'MyResilienceHubAppConstruct', {
   appName: 'TestApp',
-  resiliencyPolicyArn: 'arn:aws:resiliencehub:us-east-2:608935286732:resiliency-policy/6e582802-403b-4362-871a-b2479003837a',
-  sourceStackName: 'DemoApplication',
+  resiliencyPolicyArn: 'arn:aws:resiliencehub:region:account:resiliency-policy/policy-arn',
+  sourceArns: [
+    'arn:aws:cloudformation:region:account:stack/first-stack-name/first-stack-id',
+    'arn:aws:cloudformation:region:account:stack/second-stack-name/second-stack-id',
+  ],
   publish: true,
   tags: {
     'Application': 'DemoApplication',

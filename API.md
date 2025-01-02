@@ -165,7 +165,7 @@ const awsResilienceHubAppProps: AwsResilienceHubAppProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.appName">appName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.sourceStackName">sourceStackName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.sourceArns">sourceArns</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.appAssessmentSchedule">appAssessmentSchedule</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.appDescription">appDescription</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.publish">publish</a></code> | <code>boolean</code> | *No description.* |
@@ -184,13 +184,13 @@ public readonly appName: string;
 
 ---
 
-##### `sourceStackName`<sup>Required</sup> <a name="sourceStackName" id="aws-resiliencehub-app.AwsResilienceHubAppProps.property.sourceStackName"></a>
+##### `sourceArns`<sup>Required</sup> <a name="sourceArns" id="aws-resiliencehub-app.AwsResilienceHubAppProps.property.sourceArns"></a>
 
 ```typescript
-public readonly sourceStackName: string;
+public readonly sourceArns: string[];
 ```
 
-- *Type:* string
+- *Type:* string[]
 
 ---
 

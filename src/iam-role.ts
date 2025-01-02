@@ -1,7 +1,7 @@
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
-export function createCustomResourceRole(scope: Construct, appArn: string, sourceStackName: string): iam.Role {
+export function createCustomResourceRole(scope: Construct, appArn: string): iam.Role {
   return new iam.Role(scope, 'CustomResourceRole', {
     assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
     description: 'Role for AWS Resilience Hub import and publish operations',
@@ -13,15 +13,15 @@ export function createCustomResourceRole(scope: Construct, appArn: string, sourc
               'resiliencehub:ImportResourcesToDraftAppVersion',
               'resiliencehub:PublishAppVersion',
             ],
-            resources: [appArn], // Restrict to the specific Resilience Hub application ARN
+            resources: [appArn], // Restrict to the specific Resilience Hub application
           }),
           new iam.PolicyStatement({
             actions: [
-              'cloudformation:DescribeStacks', // Action to describe the stack
+              'logs:CreateLogGroup',
+              'logs:CreateLogStream',
+              'logs:PutLogEvents',
             ],
-            resources: [
-              `arn:aws:cloudformation:*:*:stack/${sourceStackName}/*`, // Restrict to specific stack ARN
-            ],
+            resources: ['arn:aws:logs:*:*:*'], // Allow logging to any CloudWatch log group
           }),
         ],
       }),
