@@ -12,13 +12,20 @@ const stack = new cdk.Stack(app, 'MyTestStack', {
 // Add our custom construct to the stack
 new AwsResilienceHubApp(stack, 'MyResilienceHubAppConstruct', {
   appName: 'TestApp',
-  resiliencyPolicyArn: 'arn:aws:resiliencehub:region:account:resiliency-policy/policy-arn',
+  resiliencyPolicyArn: 'arn:aws:resiliencehub:us-east-2:608935286732:resiliency-policy/6e582802-403b-4362-871a-b2479003837a',
+  //terraformSources: [ 
+  //  { 
+  //     s3StateFileUrl: 's3://my-sample-bucket-e9fbe11947e6f486/terraform/terraform.tfstate'
+  //  }
+  //],
   sourceArns: [
-    'arn:aws:cloudformation:region:account:stack/first-stack-name/first-stack-id',
-    'arn:aws:cloudformation:region:account:stack/second-stack-name/second-stack-id',
+    'arn:aws:cloudformation:us-east-2:608935286732:stack/DemoApplication/e5bcc650-f191-11ee-acfb-02bc599451bb',
+    //'arn:aws:cloudformation:us-east-2:608935286732:stack/arh-lab-workload/d4029020-c927-11ef-8c28-021e135c1eab',
+    //'arn:aws:resource-groups:us-east-2:608935286732:group/myApp2arh-app/09n3g3nfl3gyw8nxizb08ekoqe',
   ],
   publish: true,
   tags: {
     'Application': 'DemoApplication',
   }
 });
+

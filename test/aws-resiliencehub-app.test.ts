@@ -1,26 +1,129 @@
 import { App, Stack } from 'aws-cdk-lib';
+import { AwsResilienceHubApp } from '../src';
 import { Template } from 'aws-cdk-lib/assertions';
-import * as AwsResilienceHubApp from '../src';
 
-test('AwsResilienceHubApp Created', () => {
-  const app = new App();
-  const stack = new Stack(app, 'TestStack');
+describe('AwsResilienceHubApp', () => {
+  let app: App;
+  let stack: Stack;
 
-  new AwsResilienceHubApp.AwsResilienceHubApp(stack, 'TestApp', {
-    appName: 'TestResilienceHubApp',
-    resiliencyPolicyArn: 'arn:aws:resiliencehub:region:account:resiliency-policy/policy-arn',
-    sourceArns: [
-      'arn:aws:cloudformation:region:account:stack/first-stack-name/first-stack-id',
-      'arn:aws:cloudformation:region:account:stack/second-stack-name/second-stack-id',
-    ],
+  beforeEach(() => {
+    app = new App();
+    stack = new Stack(app, 'TestStack');
   });
 
-  const template = Template.fromStack(stack);
+  it('should accept sourceArns as a valid source', () => {
+    // GIVEN
+    const props = {
+      appName: 'TestApp',
+      sourceArns: ['arn:aws:s3:::mybucket'],
+    };
 
-  template.resourceCountIs('AWS::ResilienceHub::App', 1);
+    // WHEN
+    const resilienceHub = new AwsResilienceHubApp(stack, 'TestResilienceHub', props);
 
-  template.hasResourceProperties('AWS::ResilienceHub::App', {
-    Name: 'TestResilienceHubApp',
+    // THEN
+    expect(resilienceHub.appArn).toBeDefined();
   });
 
+  it('should accept terraformSources as a valid source', () => {
+    // GIVEN
+    const props = {
+      appName: 'TestApp',
+      terraformSources: ['s3://mybucket/terraform.tf'],
+    };
+
+    // WHEN
+    const resilienceHub = new AwsResilienceHubApp(stack, 'TestResilienceHub', props);
+
+    // THEN
+    expect(resilienceHub.appArn).toBeDefined();
+  });
+
+  it('should accept eksSources as a valid source', () => {
+    // GIVEN
+    const props = {
+      appName: 'TestApp',
+      eksSources: ['cluster-1'],
+    };
+
+    // WHEN
+    const resilienceHub = new AwsResilienceHubApp(stack, 'TestResilienceHub', props);
+
+    // THEN
+    expect(resilienceHub.appArn).toBeDefined();
+  });
+
+  it('should throw error when multiple sources are provided', () => {
+    // GIVEN
+    const props = {
+      appName: 'TestApp',
+      sourceArns: ['arn:aws:s3:::mybucket'],
+      terraformSources: ['s3://mybucket/terraform.tf'],
+    };
+
+    // WHEN & THEN
+    expect(() => {
+      new AwsResilienceHubApp(stack, 'TestResilienceHub', props);
+    }).toThrow('Only one source type (sourceArns, terraformSources, or EKSsources) can be provided');
+  });
+
+  it('should throw error when no source is provided', () => {
+    // GIVEN
+    const props = {
+      appName: 'TestApp',
+    };
+
+    // WHEN & THEN
+    expect(() => {
+      new AwsResilienceHubApp(stack, 'TestResilienceHub', props);
+    }).toThrow('At least one source must be provided');
+  });
+
+  it('should create app with default values when only required props are provided', () => {
+    // GIVEN
+    const props = {
+      appName: 'TestApp',
+    };
+    
+    // WHEN
+    new AwsResilienceHubApp(stack, 'TestResilienceHub', props);
+    const template = Template.fromStack(stack);
+
+    // THEN
+    template.hasResourceProperties('AWS::ResilienceHub::App', {
+      Name: 'TestApp',
+      AppAssessmentSchedule: 'Daily',
+      Description: 'Resilience App created by AwsResilienceHubApp construct',
+      Tags: {
+        Managed: 'AwsResilienceHubApp-Construct'
+      }
+    });
+  });
+
+  it('should create app with custom values when provided', () => {
+    // GIVEN
+    const props = {
+      appName: 'TestApp',
+      sourceArns: ['arn:aws:s3:::mybucket'],
+      appDescription: 'Custom description',
+      appAssessmentSchedule: 'Weekly',
+      tags: {
+        Environment: 'Production'
+      }
+    };
+
+    // WHEN
+    new AwsResilienceHubApp(stack, 'TestResilienceHub', props);
+    const template = Template.fromStack(stack);
+
+    // THEN
+    template.hasResourceProperties('AWS::ResilienceHub::App', {
+      Name: 'TestApp',
+      AppAssessmentSchedule: 'Weekly',
+      Description: 'Custom description',
+      Tags: {
+        Environment: 'Production'
+      }
+    });
+  });
 });

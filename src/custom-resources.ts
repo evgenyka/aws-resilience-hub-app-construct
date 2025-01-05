@@ -1,11 +1,12 @@
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
+import { SourcesWithType } from './utils';
 
 export function createImportResourcesCustomResource(
   scope: Construct,
   appArn: string,
-  sourceArns: string[],
+  sourcesWithType: SourcesWithType,
   customResourceRole: iam.IRole,
 ): cr.AwsCustomResource {
 
@@ -16,7 +17,9 @@ export function createImportResourcesCustomResource(
       action: 'importResourcesToDraftAppVersion',
       parameters: {
         appArn: appArn,
-        sourceArns: sourceArns,
+        sourceArns: sourcesWithType.find((source) => source.type === 'sourceArns')?.sources,
+        terraformSources: sourcesWithType.find((source) => source.type === 'terraformSources')?.sources,
+        eksSources: sourcesWithType.find((source) => source.type === 'eksSources')?.sources,
       },
       physicalResourceId: cr.PhysicalResourceId.of('ImportResourcesStaticId'),
     },

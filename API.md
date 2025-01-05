@@ -165,12 +165,14 @@ const awsResilienceHubAppProps: AwsResilienceHubAppProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.appName">appName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.sourceArns">sourceArns</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.appAssessmentSchedule">appAssessmentSchedule</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.appDescription">appDescription</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.eksSources">eksSources</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.publish">publish</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.resiliencyPolicyArn">resiliencyPolicyArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.sourceArns">sourceArns</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+| <code><a href="#aws-resiliencehub-app.AwsResilienceHubAppProps.property.terraformSources">terraformSources</a></code> | <code>string[]</code> | *No description.* |
 
 ---
 
@@ -181,16 +183,6 @@ public readonly appName: string;
 ```
 
 - *Type:* string
-
----
-
-##### `sourceArns`<sup>Required</sup> <a name="sourceArns" id="aws-resiliencehub-app.AwsResilienceHubAppProps.property.sourceArns"></a>
-
-```typescript
-public readonly sourceArns: string[];
-```
-
-- *Type:* string[]
 
 ---
 
@@ -214,6 +206,16 @@ public readonly appDescription: string;
 
 ---
 
+##### `eksSources`<sup>Optional</sup> <a name="eksSources" id="aws-resiliencehub-app.AwsResilienceHubAppProps.property.eksSources"></a>
+
+```typescript
+public readonly eksSources: string[];
+```
+
+- *Type:* string[]
+
+---
+
 ##### `publish`<sup>Optional</sup> <a name="publish" id="aws-resiliencehub-app.AwsResilienceHubAppProps.property.publish"></a>
 
 ```typescript
@@ -234,6 +236,16 @@ public readonly resiliencyPolicyArn: string;
 
 ---
 
+##### `sourceArns`<sup>Optional</sup> <a name="sourceArns" id="aws-resiliencehub-app.AwsResilienceHubAppProps.property.sourceArns"></a>
+
+```typescript
+public readonly sourceArns: string[];
+```
+
+- *Type:* string[]
+
+---
+
 ##### `tags`<sup>Optional</sup> <a name="tags" id="aws-resiliencehub-app.AwsResilienceHubAppProps.property.tags"></a>
 
 ```typescript
@@ -241,6 +253,16 @@ public readonly tags: {[ key: string ]: string};
 ```
 
 - *Type:* {[ key: string ]: string}
+
+---
+
+##### `terraformSources`<sup>Optional</sup> <a name="terraformSources" id="aws-resiliencehub-app.AwsResilienceHubAppProps.property.terraformSources"></a>
+
+```typescript
+public readonly terraformSources: string[];
+```
+
+- *Type:* string[]
 
 ---
 
