@@ -15,7 +15,6 @@ type SourceWithType =
 
 export type SourcesWithType = SourceWithType[];
 
-
 /**
  * Fetches the ARN of the CloudFormation stack.
  * @param scope - The construct scope.

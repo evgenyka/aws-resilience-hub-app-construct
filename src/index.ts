@@ -2,11 +2,13 @@ import * as resiliencehub from 'aws-cdk-lib/aws-resiliencehub';
 import { Construct } from 'constructs';
 import { createImportResourcesCustomResource, createPublishAppCustomResource } from './custom-resources';
 import { createCustomResourceRole } from './iam-role';
-import { fetchStackArn } from './utils';
+import { SourcesWithType, TerraformSources } from './utils';
 
 export interface AwsResilienceHubAppProps {
   readonly appName: string;
-  readonly sourceStackName: string;
+  readonly sourceArns?: string[];
+  readonly terraformSources?: TerraformSources;
+  readonly eksSources?: string[];
   readonly resiliencyPolicyArn?: string;
   readonly appAssessmentSchedule?: string;
   readonly appDescription?: string;
@@ -34,13 +36,27 @@ export class AwsResilienceHubApp extends Construct {
     });
 
     // Create IAM Role for Custom Resources
-    const customResourceRole = createCustomResourceRole(this, arhApp.attrAppArn, props.sourceStackName);
+    const customResourceRole = createCustomResourceRole(this, arhApp.attrAppArn);
 
-    // Fetch stack ARN using the function from utils.ts
-    const stackArn = fetchStackArn(this, props.sourceStackName, customResourceRole);
+    const sourcesWithTypes: SourcesWithType = [
+      {
+        type: 'sourceArns',
+        sources: props.sourceArns ?? [], 
+      },
+      {
+        type: 'terraformSources',
+        sources: props.terraformSources ?? [], 
+      },
+      {
+        type: 'eksSources',
+        sources: props.eksSources ?? [],
+      },
+    ];
+
+    console.log('sourceTypes:', JSON.stringify(sourcesWithTypes, null, 2));
 
     // Create Import Resources Custom Resource
-    const importResources = createImportResourcesCustomResource(this, arhApp.attrAppArn, stackArn, customResourceRole);
+    const importResources = createImportResourcesCustomResource(this, arhApp.attrAppArn, sourcesWithTypes, customResourceRole);
 
     // Conditionally create the Publish App Custom Resource based on the `publish` property
     let publishApp;
