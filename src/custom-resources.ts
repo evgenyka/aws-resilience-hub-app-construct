@@ -7,6 +7,7 @@ export function createImportResourcesCustomResource(
   scope: Construct,
   appArn: string,
   sourcesWithType: SourcesWithType,
+
   customResourceRole: iam.IRole,
 ): cr.AwsCustomResource {
 

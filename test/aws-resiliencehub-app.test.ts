@@ -6,9 +6,19 @@ describe('AwsResilienceHubApp', () => {
   let app: App;
   let stack: Stack;
 
+<<<<<<< HEAD
   beforeEach(() => {
     app = new App();
     stack = new Stack(app, 'TestStack');
+=======
+  new AwsResilienceHubApp.AwsResilienceHubApp(stack, 'TestApp', {
+    appName: 'TestResilienceHubApp',
+    resiliencyPolicyArn: 'arn:aws:resiliencehub:region:account:resiliency-policy/policy-arn',
+    sourceArns: [
+      'arn:aws:cloudformation:region:account:stack/first-stack-name/first-stack-id',
+      'arn:aws:cloudformation:region:account:stack/second-stack-name/second-stack-id',
+    ],
+>>>>>>> 1850b361e8a54649394e6cddff3065fed8e11f27
   });
 
   it('should accept sourceArns as a valid source', () => {

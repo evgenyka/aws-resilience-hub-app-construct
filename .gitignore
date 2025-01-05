@@ -51,5 +51,10 @@ tsconfig.json
 !/API.md
 !/.projenrc.ts
 cdk.out/
+<<<<<<< HEAD
 .terraform/
 .terraform/
+=======
+bin/
+terraform/
+>>>>>>> 1850b361e8a54649394e6cddff3065fed8e11f27
