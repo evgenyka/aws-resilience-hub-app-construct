@@ -52,3 +52,6 @@ tsconfig.json
 !/.projenrc.ts
 cdk.out/
 terraform/.terraform
+node_modules/
+*.js
+*.d.ts
