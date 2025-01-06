@@ -2,18 +2,16 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 
-type TerraformSource = {
+export type terraformSource = {
   s3StateFileUrl: string;
 };
 
-export type TerraformSources = TerraformSource[];
-
-type SourceWithType =
+type sourceWithType =
   | { type: 'sourceArns'; sources: string[] }
-  | { type: 'terraformSources'; sources: TerraformSources }
+  | { type: 'terraformSources'; sources: terraformSource[] }
   | { type: 'eksSources'; sources: string[] };
 
-export type SourcesWithType = SourceWithType[];
+export type sourcesWithType = sourceWithType[];
 
 /**
  * Fetches the ARN of the CloudFormation stack.

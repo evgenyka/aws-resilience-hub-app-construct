@@ -2,12 +2,12 @@ import * as resiliencehub from 'aws-cdk-lib/aws-resiliencehub';
 import { Construct } from 'constructs';
 import { createImportResourcesCustomResource, createPublishAppCustomResource } from './custom-resources';
 import { createCustomResourceRole } from './iam-role';
-import { SourcesWithType, TerraformSources } from './utils';
+import { sourcesWithType, terraformSource } from './utils';
 
 export interface AwsResilienceHubAppProps {
   readonly appName: string;
   readonly sourceArns?: string[];
-  readonly terraformSources?: TerraformSources;
+  readonly terraformSources?: terraformSource[];
   readonly eksSources?: string[];
   readonly resiliencyPolicyArn?: string;
   readonly appAssessmentSchedule?: string;
@@ -38,7 +38,7 @@ export class AwsResilienceHubApp extends Construct {
     // Create IAM Role for Custom Resources
     const customResourceRole = createCustomResourceRole(this, arhApp.attrAppArn);
 
-    const sourcesWithTypes: SourcesWithType = [
+    const sourcesWithTypes: sourcesWithType = [
       {
         type: 'sourceArns',
         sources: props.sourceArns ?? [], 
@@ -53,7 +53,7 @@ export class AwsResilienceHubApp extends Construct {
       },
     ];
 
-    console.log('sourceTypes:', JSON.stringify(sourcesWithTypes, null, 2));
+    //console.log('sourceTypes:', JSON.stringify(sourcesWithTypes, null, 2));
 
     // Create Import Resources Custom Resource
     const importResources = createImportResourcesCustomResource(this, arhApp.attrAppArn, sourcesWithTypes, customResourceRole);
